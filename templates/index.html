@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pointcloud Converter</title>
+    <link rel="stylesheet" href="./static/css/style.css" />
+  </head>
+  <body>
+    <h1>Pointcloud Converter</h1>
+    <div class="form-div">
+      <form id="upload-form" enctype="multipart/form-data">
+        <input type="file" id="input-file" name="file" />
+        <div class="select-div">
+          <label for="format-select">Choose conversion format:</label>
+          <select id="format-select" name="format">
+            <option value="xyz">XYZ</option>
+            <option value="ply">PLY</option>
+            <option value="pcd">PCD</option>
+            <option value="pts">PTS</option>
+          </select>
+        </div>
+      </form>
+    </div>
+    <div class="btn-div">
+      <button type="upload" id="upload-btn" class="button" disabled>
+        Upload
+      </button>
+      <button type="button" id="convert-btn" class="button" disabled>
+        Convert
+      </button>
+      <button type="button" id="download-btn" class="button" disabled>
+        Download
+      </button>
+    </div>
+    <div id="status-message"></div>
+    <script src="./static/js/script.js"></script>
+  </body>
+</html>

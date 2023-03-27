@@ -1,0 +1,94 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  background-color: bisque;
+  flex-direction: column;
+  margin: 15px;
+  padding: 0;
+  font-family: "Open Sans", sans-serif;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.button {
+  background-color: rgb(123, 63, 0);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Add a hover effect */
+.button:hover {
+  background-color: rgba(123, 63, 0, 0.8);
+}
+
+/* Add a disabled style */
+.button:disabled {
+  background-color: rgba(123, 63, 0, 0.3);
+  cursor: not-allowed;
+}
+
+.form-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+#upload-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#input-file {
+  padding: 10px;
+  padding-right: 0px;
+  border: 1px solid rgba(123, 63, 0, 0.3);
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#input-file:hover,
+#format-select:hover {
+  border: 1px solid rgba(123, 63, 0, 0.8);
+}
+
+#input-file:focus {
+  outline: none;
+  border: 1px solid #808080;
+  box-shadow: 0 0 5px #a4a4a4;
+}
+
+#input-file::file-selector-button {
+  font-weight: bold;
+  padding: 8px;
+  border: thin solid rgba(123, 63, 0, 0.5);
+  border-radius: 5px;
+  background-color: rgba(123, 63, 0, 0.3);
+}
+
+#format-select {
+  background-color: rgba(123, 63, 0, 0.3);
+  margin-top: 20px;
+  padding: 5px;
+  border: 1px solid rgba(123, 63, 0, 0.5);
+  border-radius: 4px;
+  font-size: 14px;
+  width: 70px;
+  /* -webkit-appearance: none;
+  -moz-appearance: none; */
+  /* appearance: none; */
+}
+
+#format-select option {
+  padding: 5px;
+  font-size: 16px;
+}
