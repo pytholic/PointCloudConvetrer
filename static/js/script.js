@@ -5,11 +5,18 @@ const uploadBtn = document.getElementById("upload-btn");
 const convertBtn = document.getElementById("convert-btn");
 const downloadBtn = document.getElementById("download-btn");
 const statusMsg = document.getElementById("status-message");
+const format = document.getElementById("format-select");
 
 const formData = new FormData();
 
 let selectedFile = null;
 let convertedFile = null;
+let selectedFormat = "xyz";
+
+// Set format variable based on selection
+format.addEventListener("change", (event) => {
+  selectedFormat = format.value;
+});
 
 // Set the initial status message
 statusMsg.innerHTML = "Please upload a file.";
@@ -45,6 +52,7 @@ uploadBtn.addEventListener("click", async (event) => {
 // Convert the uploaded file
 convertBtn.addEventListener("click", async (event) => {
   event.preventDefault();
+  formData.append("format", selectedFormat);
   const response = await fetch("/convert", {
     method: "POST",
     body: formData,
@@ -73,7 +81,8 @@ downloadBtn.addEventListener("click", async (event) => {
     // Create a new download link element
     const link = document.createElement("a");
     link.href = url;
-    link.setAttribute("download", "converted.xyz");
+    outFile = convertedFile.split("/").pop();
+    link.setAttribute("download", outFile);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
