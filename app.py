@@ -12,7 +12,7 @@ app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 if not os.path.exists(app.config["UPLOAD_FOLDER"]):
     os.mkdir(app.config["UPLOAD_FOLDER"])
 
-ALLOWED_EXTENSIONS = {"ply"}
+ALLOWED_EXTENSIONS = {"ply", "pcd", "pts", "xyz"}
 
 
 def allowed_file(filename):
@@ -20,7 +20,7 @@ def allowed_file(filename):
 
 
 # Conversion function
-def convert(filepath):
+def convert(filepath, user_format):
     # Load the input point cloud
     pcd = o3d.io.read_point_cloud(filepath)
 
@@ -31,8 +31,18 @@ def convert(filepath):
     new_pcd = o3d.geometry.PointCloud()
     new_pcd.points = o3d.utility.Vector3dVector(xyz)
 
-    # Save the new point cloud as .xyz file
-    new_file = os.path.splitext(filepath)[0] + ".xyz"
+    # Save the new point cloud in desired format
+
+    if user_format == "xyz":
+        ext = ".xyz"
+    elif user_format == "ply":
+        ext = ".ply"
+    elif user_format == "pcd":
+        ext = ".pcd"
+    elif user_format == "pts":
+        ext = ".pts"
+
+    new_file = os.path.splitext(filepath)[0] + ext
     o3d.io.write_point_cloud(new_file, new_pcd, write_ascii=True)
 
     return new_file
@@ -76,12 +86,13 @@ def upload_file():
 @app.route("/convert", methods=["POST"])
 def convert_file():
     file = request.files["file"]
-    # Get the uploaded file path
+    user_format = request.form["format"]
+
     filename = secure_filename(file.filename)
     filepath = os.path.join(app.config["UPLOAD_FOLDER"], filename)
 
     # Read the file as a point cloud
-    output_file = convert(filepath)
+    output_file = convert(filepath, user_format)
 
     # Return the path to the converted file
     return (
